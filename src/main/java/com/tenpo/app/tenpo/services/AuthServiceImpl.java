@@ -4,6 +4,7 @@ import com.tenpo.app.tenpo.dtos.requests.LoginRequest;
 import com.tenpo.app.tenpo.dtos.requests.SignupRequest;
 import com.tenpo.app.tenpo.dtos.responses.JwtResponse;
 import com.tenpo.app.tenpo.dtos.responses.MessageResponse;
+import com.tenpo.app.tenpo.exceptions.UserHasAlreadyExistException;
 import com.tenpo.app.tenpo.model.Role;
 import com.tenpo.app.tenpo.model.User;
 import com.tenpo.app.tenpo.model.UserRole;
@@ -11,7 +12,6 @@ import com.tenpo.app.tenpo.repository.RoleRepository;
 import com.tenpo.app.tenpo.repository.UserRepository;
 import com.tenpo.app.tenpo.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -63,7 +63,8 @@ public class AuthServiceImpl
 
 	@Override public MessageResponse signup(SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return new MessageResponse("Error: Username is already taken!");
+			throw new UserHasAlreadyExistException(
+							String.format("This username %s has really exist", signUpRequest.getUsername()));
 		}
 		// Create new user's account
 		User user = new User(signUpRequest.getUsername(),
@@ -93,6 +94,6 @@ public class AuthServiceImpl
 		user.setRoles(roles);
 		userRepository.save(user);
 
-		return new MessageResponse("User registered successfully!");
+		return MessageResponse.whitMessage("User registered successfully!");
 	}
 }

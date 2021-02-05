@@ -3,6 +3,11 @@ package com.tenpo.app.tenpo.dtos.responses;
 public class MessageResponse {
 	private String message;
 
+
+	public static MessageResponse whitMessage(String message) {
+		return new MessageResponse(message);
+	}
+
 	public MessageResponse(String message) {
 		this.message = message;
 	}
