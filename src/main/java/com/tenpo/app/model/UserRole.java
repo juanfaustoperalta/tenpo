@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo.model;
+package com.tenpo.app.model;
 
 public enum UserRole {
 	USER_ROLE,

@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo;
+package com.tenpo.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

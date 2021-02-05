@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo.dtos.requests;
+package com.tenpo.app.dtos.requests;
 
 public class LoginRequest {
 

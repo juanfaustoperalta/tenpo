@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo.config;
+package com.tenpo.app.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;

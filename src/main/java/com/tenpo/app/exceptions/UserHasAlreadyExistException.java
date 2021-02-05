@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo.exceptions;
+package com.tenpo.app.exceptions;
 
 public class UserHasAlreadyExistException
 				extends RuntimeException {

@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo.dtos.responses;
+package com.tenpo.app.dtos.responses;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo.services;
+package com.tenpo.app.services;
 
 
 import org.springframework.stereotype.Service;

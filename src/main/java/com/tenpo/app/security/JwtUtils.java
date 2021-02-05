@@ -1,8 +1,8 @@
-package com.tenpo.app.tenpo.security;
+package com.tenpo.app.security;
 
 import java.util.Date;
 
-import com.tenpo.app.tenpo.services.UserDetailsImpl;
+import com.tenpo.app.services.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

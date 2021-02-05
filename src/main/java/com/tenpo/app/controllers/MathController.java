@@ -1,7 +1,7 @@
-package com.tenpo.app.tenpo.controllers;
+package com.tenpo.app.controllers;
 
 
-import com.tenpo.app.tenpo.services.MathService;
+import com.tenpo.app.services.MathService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

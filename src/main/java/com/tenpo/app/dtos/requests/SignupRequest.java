@@ -1,4 +1,6 @@
-package com.tenpo.app.tenpo.dtos.requests;
+package com.tenpo.app.dtos.requests;
+
+import com.tenpo.app.model.UserRole;
 
 import java.util.Set;
 
@@ -6,7 +8,7 @@ public class SignupRequest {
 
 	private String username;
 
-	private Set<String> role;
+	private Set<UserRole> role;
 
 	private String password;
 
@@ -26,11 +28,11 @@ public class SignupRequest {
 		this.password = password;
 	}
 
-	public Set<String> getRole() {
+	public Set<UserRole> getRole() {
 		return this.role;
 	}
 
-	public void setRole(Set<String> role) {
+	public void setRole(Set<UserRole> role) {
 		this.role = role;
 	}
 }

@@ -1,7 +1,7 @@
-package com.tenpo.app.tenpo.config;
+package com.tenpo.app.config;
 
-import com.tenpo.app.tenpo.security.AuthTokenFilter;
-import com.tenpo.app.tenpo.services.UserDetailsServiceImpl;
+import com.tenpo.app.security.AuthTokenFilter;
+import com.tenpo.app.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

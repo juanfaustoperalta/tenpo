@@ -1,16 +1,16 @@
-package com.tenpo.app.tenpo.services;
+package com.tenpo.app.services;
 
-import com.tenpo.app.tenpo.dtos.requests.LoginRequest;
-import com.tenpo.app.tenpo.dtos.requests.SignupRequest;
-import com.tenpo.app.tenpo.dtos.responses.JwtResponse;
-import com.tenpo.app.tenpo.dtos.responses.MessageResponse;
-import com.tenpo.app.tenpo.exceptions.UserHasAlreadyExistException;
-import com.tenpo.app.tenpo.model.Role;
-import com.tenpo.app.tenpo.model.User;
-import com.tenpo.app.tenpo.model.UserRole;
-import com.tenpo.app.tenpo.repository.RoleRepository;
-import com.tenpo.app.tenpo.repository.UserRepository;
-import com.tenpo.app.tenpo.security.JwtUtils;
+import com.tenpo.app.dtos.requests.LoginRequest;
+import com.tenpo.app.dtos.requests.SignupRequest;
+import com.tenpo.app.dtos.responses.JwtResponse;
+import com.tenpo.app.dtos.responses.MessageResponse;
+import com.tenpo.app.exceptions.RoleNotFoundException;
+import com.tenpo.app.exceptions.UserHasAlreadyExistException;
+import com.tenpo.app.model.Role;
+import com.tenpo.app.model.User;
+import com.tenpo.app.repository.RoleRepository;
+import com.tenpo.app.repository.UserRepository;
+import com.tenpo.app.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,7 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -70,26 +70,11 @@ public class AuthServiceImpl
 		User user = new User(signUpRequest.getUsername(),
 						encoder.encode(signUpRequest.getPassword()));
 
-		Set<String> strRoles = signUpRequest.getRole();
-		Set<Role> roles = new HashSet<>();
+		Set<Role> roles = signUpRequest.getRole()
+						.stream()
+						.map(role -> roleRepository.findByName(role).orElseThrow(RoleNotFoundException::new))
+						.collect(Collectors.toSet());
 
-		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(UserRole.USER_ROLE)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-			roles.add(userRole);
-		} else {
-			strRoles.forEach(role -> {
-				if ("admin".equals(role)) {
-					Role adminRole = roleRepository.findByName(UserRole.ADMIN_ROLE)
-									.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(adminRole);
-				} else {
-					Role userRole = roleRepository.findByName(UserRole.USER_ROLE)
-									.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(userRole);
-				}
-			});
-		}
 
 		user.setRoles(roles);
 		userRepository.save(user);

@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo.model;
+package com.tenpo.app.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

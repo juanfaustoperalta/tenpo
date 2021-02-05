@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo.security;
+package com.tenpo.app.security;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tenpo.app.tenpo.services.UserDetailsServiceImpl;
+import com.tenpo.app.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
-package com.tenpo.app.tenpo.controllers;
+package com.tenpo.app.exceptions;
 
-import com.tenpo.app.tenpo.dtos.responses.MessageResponse;
-import com.tenpo.app.tenpo.exceptions.UserHasAlreadyExistException;
+import com.tenpo.app.exceptions.UserHasAlreadyExistException;
+import com.tenpo.app.dtos.responses.MessageResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -28,6 +28,11 @@ public class ControllerAdvisor
 					WebRequest request) {
 
 		return new ResponseEntity(MessageResponse.whitMessage(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+	}
+
+	@ExceptionHandler(RoleNotFoundException.class)
+	public ResponseEntity<MessageResponse> handleRoleNotFoundException(RoleNotFoundException ex, WebRequest request) {
+		return new ResponseEntity(MessageResponse.whitMessage("Role not found"), HttpStatus.BAD_REQUEST);
 	}
 
 }

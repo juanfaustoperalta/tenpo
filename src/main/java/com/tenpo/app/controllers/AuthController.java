@@ -1,10 +1,10 @@
-package com.tenpo.app.tenpo.controllers;
+package com.tenpo.app.controllers;
 
-import com.tenpo.app.tenpo.dtos.requests.LoginRequest;
-import com.tenpo.app.tenpo.dtos.requests.SignupRequest;
-import com.tenpo.app.tenpo.dtos.responses.JwtResponse;
-import com.tenpo.app.tenpo.dtos.responses.MessageResponse;
-import com.tenpo.app.tenpo.services.AuthService;
+import com.tenpo.app.dtos.requests.LoginRequest;
+import com.tenpo.app.dtos.requests.SignupRequest;
+import com.tenpo.app.dtos.responses.JwtResponse;
+import com.tenpo.app.dtos.responses.MessageResponse;
+import com.tenpo.app.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

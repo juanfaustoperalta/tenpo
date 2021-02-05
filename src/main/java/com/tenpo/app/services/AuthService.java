@@ -1,9 +1,9 @@
-package com.tenpo.app.tenpo.services;
+package com.tenpo.app.services;
 
-import com.tenpo.app.tenpo.dtos.requests.LoginRequest;
-import com.tenpo.app.tenpo.dtos.requests.SignupRequest;
-import com.tenpo.app.tenpo.dtos.responses.JwtResponse;
-import com.tenpo.app.tenpo.dtos.responses.MessageResponse;
+import com.tenpo.app.dtos.requests.LoginRequest;
+import com.tenpo.app.dtos.requests.SignupRequest;
+import com.tenpo.app.dtos.responses.JwtResponse;
+import com.tenpo.app.dtos.responses.MessageResponse;
 
 public interface AuthService {
 

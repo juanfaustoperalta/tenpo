@@ -1,7 +1,7 @@
-package com.tenpo.app.tenpo.services;
+package com.tenpo.app.services;
 
-import com.tenpo.app.tenpo.model.User;
-import com.tenpo.app.tenpo.repository.UserRepository;
+import com.tenpo.app.model.User;
+import com.tenpo.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.tenpo.app.tenpo.dtos.responses;
+package com.tenpo.app.dtos.responses;
 
 public class MessageResponse {
 	private String message;
