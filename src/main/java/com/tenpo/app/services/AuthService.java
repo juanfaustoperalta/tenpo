@@ -10,4 +10,6 @@ public interface AuthService {
 	JwtResponse login(LoginRequest loginRequest);
 
 	MessageResponse signup(SignupRequest signupRequest);
+
+	void logout(String signupRequest);
 }

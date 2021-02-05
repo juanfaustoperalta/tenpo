@@ -1,15 +1,22 @@
 package com.tenpo.app.security;
 
-import java.util.Date;
-
+import com.tenpo.app.repository.TokenRepository;
 import com.tenpo.app.services.UserDetailsImpl;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.*;
+import java.util.Date;
+import java.util.Optional;
 
 @Component
 public class JwtUtils {
@@ -21,16 +28,22 @@ public class JwtUtils {
 	@Value("${tenpo.app.jwt.expiration.ms}")
 	private int jwtExpirationMs;
 
+	@Autowired
+	public TokenRepository tokenRepository;
+
+
 	public String generateJwtToken(Authentication authentication) {
 
 		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-		return Jwts.builder()
+		String token = Jwts.builder()
 						.setSubject((userPrincipal.getUsername()))
 						.setIssuedAt(new Date())
 						.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
 						.signWith(SignatureAlgorithm.HS512, jwtSecret)
 						.compact();
+		tokenRepository.whiteListing(userPrincipal.getUsername(), token);
+		return token;
 	}
 
 	public String getUserNameFromJwtToken(String token) {
@@ -40,7 +53,10 @@ public class JwtUtils {
 	public boolean validateJwtToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-			return true;
+			if (hasToken(authToken)) {
+				return true;
+			}
+
 		} catch (SignatureException e) {
 			logger.error("Invalid JWT signature: {}", e.getMessage());
 		} catch (MalformedJwtException e) {
@@ -55,4 +71,16 @@ public class JwtUtils {
 
 		return false;
 	}
+
+	public void invalidate(String token) {
+		String username = this.getUserNameFromJwtToken(token);
+		tokenRepository.removeToken(username);
+	}
+
+	private boolean hasToken(String authToken) {
+		String username = this.getUserNameFromJwtToken(authToken);
+		Optional<String> token = tokenRepository.getToken(username);
+		return token.isPresent() && token.get().equals(authToken);
+	}
+
 }

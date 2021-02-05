@@ -81,4 +81,17 @@ public class AuthServiceImpl
 
 		return MessageResponse.whitMessage("User registered successfully!");
 	}
+
+	@Override public void logout(String token) {
+		jwtUtils.invalidate(extractToken(token));
+	}
+
+	private String extractToken(String token) {
+		String[] tokenArray = token.split(" ");
+		if (tokenArray[0].equals("Bearer")) {
+			return tokenArray[1];
+		} else {
+			return token;
+		}
+	}
 }
