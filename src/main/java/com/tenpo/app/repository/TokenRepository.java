@@ -19,7 +19,7 @@ public class TokenRepository {
 	}
 
 	public void removeToken(String username) {
-		jwtTokenWhiteList.computeIfPresent(username, (key, currentToken) -> "");
+		jwtTokenWhiteList.remove(username);
 	}
 
 	public Optional<String> getToken(String username) {
