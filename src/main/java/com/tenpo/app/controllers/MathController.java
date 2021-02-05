@@ -1,6 +1,7 @@
 package com.tenpo.app.controllers;
 
 
+import com.tenpo.app.dtos.responses.MathResponse;
 import com.tenpo.app.services.MathService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +23,10 @@ public class MathController {
 	}
 
 	@GetMapping("/{number1}/{number2}")
-	public @ResponseBody ResponseEntity<BigDecimal> multiply(@PathVariable("number1") BigDecimal number1,
+	public @ResponseBody ResponseEntity<MathResponse> multiply(@PathVariable("number1") BigDecimal number1,
 					@PathVariable("number2") BigDecimal number2) {
 		BigDecimal multiply = service.multiply(number1, number2);
-		return ResponseEntity.ok(multiply);
+		return ResponseEntity.ok(new MathResponse(multiply));
 	}
 
 
