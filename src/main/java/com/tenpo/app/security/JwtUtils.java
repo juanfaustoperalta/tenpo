@@ -22,14 +22,18 @@ import java.util.Optional;
 public class JwtUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-	@Value("${tenpo.app.jwt.secret}")
 	private String jwtSecret;
 
-	@Value("${tenpo.app.jwt.expiration.ms}")
 	private int jwtExpirationMs;
 
-	@Autowired
-	public TokenRepository tokenRepository;
+	private final TokenRepository tokenRepository;
+
+	public JwtUtils(TokenRepository tokenRepository, @Value("${tenpo.app.jwt.expiration.ms}") int jwtExpirationMs,
+					@Value("${tenpo.app.jwt.secret}") String jwtSecret) {
+		this.tokenRepository = tokenRepository;
+		this.jwtSecret = jwtSecret;
+		this.jwtExpirationMs = jwtExpirationMs;
+	}
 
 
 	public String generateJwtToken(Authentication authentication) {

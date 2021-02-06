@@ -19,7 +19,7 @@ public class ControllerAdvisor
 				extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(UserHasAlreadyExistException.class)
-	public ResponseEntity<MessageResponse> handleUserHasReallyExistException(UserHasAlreadyExistException ex,
+	public ResponseEntity<MessageResponse> handleUserAlreadyExistException(UserHasAlreadyExistException ex,
 					WebRequest request) {
 		return new ResponseEntity(MessageResponse.whitMessage(ex.getMessage()), HttpStatus.BAD_REQUEST);
 	}

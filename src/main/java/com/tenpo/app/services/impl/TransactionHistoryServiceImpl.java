@@ -24,7 +24,8 @@ public class TransactionHistoryServiceImpl
 
 	@Override
 	public void createTransactionHistory(Status status, TransactionName transactionName, Exception exception) {
-		TransactionHistory transactionHistory = new TransactionHistory(status, transactionName, exception);
+		TransactionHistory transactionHistory = new TransactionHistory(status, transactionName,
+						exception.getClass().getName());
 		transactionHistoryRepository.save(transactionHistory);
 	}
 

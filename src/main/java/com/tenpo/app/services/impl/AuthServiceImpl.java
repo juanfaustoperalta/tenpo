@@ -29,20 +29,24 @@ import java.util.stream.Collectors;
 public class AuthServiceImpl
 				implements AuthService {
 
-	@Autowired
-	AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager;
 
-	@Autowired
-	UserRepository userRepository;
+	private final UserRepository userRepository;
 
-	@Autowired
-	RoleRepository roleRepository;
+	private final RoleRepository roleRepository;
 
-	@Autowired
-	PasswordEncoder encoder;
+	private final PasswordEncoder encoder;
 
-	@Autowired
-	JwtUtils jwtUtils;
+	private final JwtUtils jwtUtils;
+
+	public AuthServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository,
+					RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils) {
+		this.authenticationManager = authenticationManager;
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.encoder = encoder;
+		this.jwtUtils = jwtUtils;
+	}
 
 
 	@Override public JwtResponse login(LoginRequest loginRequest) {

@@ -24,7 +24,11 @@ import javax.validation.Valid;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-	@Autowired AuthService service;
+	private final AuthService service;
+
+	public AuthController(AuthService service) {
+		this.service = service;
+	}
 
 	@MetricRecorder(name = TransactionName.LOG_IN)
 	@PostMapping("/login")

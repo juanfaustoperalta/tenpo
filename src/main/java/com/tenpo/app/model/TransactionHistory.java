@@ -18,14 +18,14 @@ public class TransactionHistory {
 	private Long id;
 	private Status status;
 	private TransactionName transactionName;
-	private Exception exception;
+	private String exception;
 	@CreationTimestamp
 	private OffsetDateTime createdAt;
 
 	public TransactionHistory() {
 	}
 
-	public TransactionHistory(Status status, TransactionName transactionName, Exception exception) {
+	public TransactionHistory(Status status, TransactionName transactionName, String exception) {
 		this.status = status;
 		this.transactionName = transactionName;
 		this.exception = exception;
@@ -60,11 +60,11 @@ public class TransactionHistory {
 		this.transactionName = transactionName;
 	}
 
-	public Exception getException() {
+	public String getException() {
 		return exception;
 	}
 
-	public void setException(Exception exception) {
+	public void setException(String exception) {
 		this.exception = exception;
 	}
 
