@@ -1,13 +1,13 @@
 package com.tenpo.app.controllers;
 
+import com.tenpo.app.aspect.MetricRecorder;
 import com.tenpo.app.dtos.requests.LoginRequest;
 import com.tenpo.app.dtos.requests.SignupRequest;
 import com.tenpo.app.dtos.responses.JwtResponse;
 import com.tenpo.app.dtos.responses.MessageResponse;
+import com.tenpo.app.model.TransactionName;
 import com.tenpo.app.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -26,6 +24,7 @@ public class AuthController {
 
 	@Autowired AuthService service;
 
+	@MetricRecorder(name = TransactionName.LOG_IN)
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 
@@ -34,6 +33,7 @@ public class AuthController {
 		return ResponseEntity.ok(jwtResponse);
 	}
 
+	@MetricRecorder(name = TransactionName.SIGN_UP)
 	@PostMapping("/signup")
 	public ResponseEntity<MessageResponse> signup(@RequestBody SignupRequest signUpRequest) {
 		MessageResponse messageResponse = service.signup(signUpRequest);
@@ -41,6 +41,7 @@ public class AuthController {
 		return ResponseEntity.ok(messageResponse);
 	}
 
+	@MetricRecorder(name = TransactionName.LOG_OUT)
 	@GetMapping("/logout")
 	public ResponseEntity<Object> logout(@RequestHeader(value = "Authorization") String authorization) {
 		service.logout(authorization);
