@@ -1,4 +1,4 @@
-package com.tenpo.app.services;
+package com.tenpo.app.services.impl;
 
 import com.tenpo.app.model.User;
 import com.tenpo.app.repository.UserRepository;

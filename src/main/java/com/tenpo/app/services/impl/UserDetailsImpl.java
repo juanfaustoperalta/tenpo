@@ -1,4 +1,4 @@
-package com.tenpo.app.services;
+package com.tenpo.app.services.impl;
 
 
 import java.util.Collection;

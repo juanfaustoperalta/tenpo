@@ -4,6 +4,7 @@ import com.tenpo.app.model.Status;
 import com.tenpo.app.model.TransactionHistory;
 import com.tenpo.app.model.TransactionName;
 import com.tenpo.app.repository.TransactionHistoryRepository;
+import com.tenpo.app.services.TransactionHistoryService;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,26 +15,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MetricRecorderAspect {
 
-	@Autowired
-	private TransactionHistoryRepository transactionHistoryRepository;
+	private final TransactionHistoryService service;
+
+	public MetricRecorderAspect(TransactionHistoryService service) {
+		this.service = service;
+	}
 
 	@AfterReturning("@annotation(metricRecorder)")
 	public void afterController(final MetricRecorder metricRecorder) {
-		this.createTransactionHistory(Status.SUCCESS, metricRecorder.name());
+		service.createTransactionHistory(Status.SUCCESS, metricRecorder.name());
 	}
 
 	@AfterThrowing(value = "@annotation(metricRecorder)", throwing = "e")
 	public void afterThrowingController(final MetricRecorder metricRecorder, Exception e) {
-		this.createTransactionHistory(Status.FAILED, metricRecorder.name(), e);
+		service.createTransactionHistory(Status.FAILED, metricRecorder.name(), e);
 	}
 
-	public void createTransactionHistory(Status status, TransactionName transactionName, Exception exception) {
-		TransactionHistory transactionHistory = new TransactionHistory(status, transactionName, exception);
-		transactionHistoryRepository.save(transactionHistory);
-	}
 
-	public void createTransactionHistory(Status status, TransactionName transactionName) {
-		TransactionHistory transactionHistory = new TransactionHistory(status, transactionName);
-		transactionHistoryRepository.save(transactionHistory);
-	}
 }

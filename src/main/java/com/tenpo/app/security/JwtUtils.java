@@ -1,7 +1,7 @@
 package com.tenpo.app.security;
 
 import com.tenpo.app.repository.TokenRepository;
-import com.tenpo.app.services.UserDetailsImpl;
+import com.tenpo.app.services.impl.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

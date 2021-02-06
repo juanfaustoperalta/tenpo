@@ -1,4 +1,4 @@
-package com.tenpo.app.services;
+package com.tenpo.app.services.impl;
 
 import com.tenpo.app.dtos.requests.LoginRequest;
 import com.tenpo.app.dtos.requests.SignupRequest;
@@ -11,6 +11,7 @@ import com.tenpo.app.model.User;
 import com.tenpo.app.repository.RoleRepository;
 import com.tenpo.app.repository.UserRepository;
 import com.tenpo.app.security.JwtUtils;
+import com.tenpo.app.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,8 +1,10 @@
 package com.tenpo.app.repository;
 
 import com.tenpo.app.model.TransactionHistory;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface TransactionHistoryRepository
-				extends JpaRepository<TransactionHistory, Long> {
+				extends PagingAndSortingRepository<TransactionHistory, Long> {
+
+
 }
