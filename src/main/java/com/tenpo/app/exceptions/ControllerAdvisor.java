@@ -1,6 +1,5 @@
 package com.tenpo.app.exceptions;
 
-import com.tenpo.app.exceptions.UserHasAlreadyExistException;
 import com.tenpo.app.dtos.responses.MessageResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.validation.ConstraintViolationException;
 
 
 @ControllerAdvice
@@ -33,6 +34,12 @@ public class ControllerAdvisor
 	@ExceptionHandler(RoleNotFoundException.class)
 	public ResponseEntity<MessageResponse> handleRoleNotFoundException(RoleNotFoundException ex, WebRequest request) {
 		return new ResponseEntity(MessageResponse.whitMessage("Role not found"), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler({ConstraintViolationException.class})
+	public ResponseEntity<Object> handleConstraintViolation(
+					ConstraintViolationException ex, WebRequest request) {
+		return new ResponseEntity(MessageResponse.whitMessage(ex.getMessage()), HttpStatus.BAD_REQUEST);
 	}
 
 }

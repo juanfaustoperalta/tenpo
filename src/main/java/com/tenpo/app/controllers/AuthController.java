@@ -9,6 +9,7 @@ import com.tenpo.app.model.TransactionName;
 import com.tenpo.app.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -26,7 +28,7 @@ public class AuthController {
 
 	@MetricRecorder(name = TransactionName.LOG_IN)
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
 
 		JwtResponse jwtResponse = service.login(loginRequest);
 
@@ -35,7 +37,7 @@ public class AuthController {
 
 	@MetricRecorder(name = TransactionName.SIGN_UP)
 	@PostMapping("/signup")
-	public ResponseEntity<MessageResponse> signup(@RequestBody SignupRequest signUpRequest) {
+	public ResponseEntity<MessageResponse> signup(@RequestBody @Valid SignupRequest signUpRequest) {
 		MessageResponse messageResponse = service.signup(signUpRequest);
 
 		return ResponseEntity.ok(messageResponse);

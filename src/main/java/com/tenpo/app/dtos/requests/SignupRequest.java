@@ -2,15 +2,21 @@ package com.tenpo.app.dtos.requests;
 
 import com.tenpo.app.model.UserRole;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 public class SignupRequest {
 
+	@NotEmpty(message = "username is empty")
 	private String username;
 
-	private Set<UserRole> role;
-
+	@NotEmpty(message = "password is empty")
 	private String password;
+
+	@NotEmpty(message = "Role is empty")
+	private Set<UserRole> roles;
 
 	public String getUsername() {
 		return username;
@@ -28,11 +34,11 @@ public class SignupRequest {
 		this.password = password;
 	}
 
-	public Set<UserRole> getRole() {
-		return this.role;
+	public Set<UserRole> getRoles() {
+		return this.roles;
 	}
 
-	public void setRole(Set<UserRole> role) {
-		this.role = role;
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
 	}
 }

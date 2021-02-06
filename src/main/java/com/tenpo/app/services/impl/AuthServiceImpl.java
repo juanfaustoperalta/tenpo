@@ -71,7 +71,7 @@ public class AuthServiceImpl
 		User user = new User(signUpRequest.getUsername(),
 						encoder.encode(signUpRequest.getPassword()));
 
-		Set<Role> roles = signUpRequest.getRole()
+		Set<Role> roles = signUpRequest.getRoles()
 						.stream()
 						.map(role -> roleRepository.findByName(role).orElseThrow(RoleNotFoundException::new))
 						.collect(Collectors.toSet());
