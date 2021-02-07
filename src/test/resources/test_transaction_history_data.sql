@@ -1,3 +1,6 @@
+DELETE
+FROM transaction_history;
+
 INSERT INTO public.transaction_history (id, cause, created_at, exception, status, transaction_name)
 VALUES (1, null, '2021-02-06 21:07:36.645246', null, 'SUCCESS', 'LOGIN');
 INSERT INTO public.transaction_history (id, cause, created_at, exception, status, transaction_name)

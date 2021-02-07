@@ -1,2 +1,0 @@
-DELETE
-FROM transaction_history;

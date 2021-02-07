@@ -18,9 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@SqlGroup({@Sql(scripts = "classpath:test_transaction_history_data.sql"),
-				@Sql(scripts = "classpath:drop_transaction_history_table.sql",
-								executionPhase = ExecutionPhase.AFTER_TEST_METHOD)})
+@SqlGroup({@Sql(scripts = "classpath:test_transaction_history_data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)})
 public class TransactionHistoryServiceTest {
 
 	@Autowired
@@ -54,11 +52,5 @@ public class TransactionHistoryServiceTest {
 		assertEquals(page.get().count(), 1L);
 	}
 
-	@Test public void test_without_filters_and_limit_zero() {
-		Page<TransactionHistory> page = service.getPage(0, 0, "id", Status.SUCCESS, TransactionName.LOGIN);
-
-		assertEquals(page.getTotalElements(), 0L);
-		assertEquals(page.get().count(), 0L);
-	}
 
 }
