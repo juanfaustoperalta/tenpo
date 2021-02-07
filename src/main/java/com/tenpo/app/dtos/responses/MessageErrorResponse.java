@@ -1,20 +1,20 @@
 package com.tenpo.app.dtos.responses;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 public class MessageErrorResponse {
 
 	private String timesStamp;
 	private Integer status;
-	private String error;
-	private String message;
+	private Map<String, List<String>> errorDetails;
 	private String path;
 
-	public MessageErrorResponse(Integer status, String error, String message, String path) {
+	public MessageErrorResponse(Integer status, Map<String, List<String>> errorDetails, String path) {
 		this.timesStamp = LocalDateTime.now().toString();
 		this.status = status;
-		this.error = error;
-		this.message = message;
+		this.errorDetails = errorDetails;
 		this.path = path;
 	}
 
@@ -34,21 +34,6 @@ public class MessageErrorResponse {
 		this.status = status;
 	}
 
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
 
 	public String getPath() {
 		return path;
@@ -56,5 +41,13 @@ public class MessageErrorResponse {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public Map<String, List<String>> getErrorDetails() {
+		return errorDetails;
+	}
+
+	public void setErrorDetails(Map<String, List<String>> errorDetails) {
+		this.errorDetails = errorDetails;
 	}
 }

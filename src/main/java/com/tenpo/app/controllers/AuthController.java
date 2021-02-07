@@ -8,6 +8,7 @@ import com.tenpo.app.dtos.responses.MessageResponse;
 import com.tenpo.app.model.TransactionName;
 import com.tenpo.app.services.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
+@Validated
 public class AuthController {
 
 	private final AuthService service;

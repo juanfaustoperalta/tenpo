@@ -7,13 +7,17 @@ import com.tenpo.app.model.TransactionName;
 import com.tenpo.app.services.TransactionHistoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Positive;
+
 @RestController
 @RequestMapping("/api/transactions")
+@Validated
 public class TransactionHistoryController {
 
 	private TransactionHistoryService service;
@@ -24,7 +28,7 @@ public class TransactionHistoryController {
 
 	@MetricRecorder(name = TransactionName.HISTORY)
 	@GetMapping
-	public ResponseEntity<Page<TransactionHistory>> history(@RequestParam(defaultValue = "0") Integer offset,
+	public ResponseEntity<Page<TransactionHistory>> history(@RequestParam(defaultValue = "0") @Positive Integer offset,
 					@RequestParam(defaultValue = "10") Integer limit,
 					@RequestParam(defaultValue = "id") String orderBy,
 					@RequestParam(required = false) Status status,
