@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@SqlGroup(@Sql(scripts = "classpath:test-data.sql"))
+@SqlGroup(@Sql(scripts = "classpath:test_security_data.sql"))
 public class AuthSecurityTest {
 
 	public static final String API_AUTH_SIGNUP = "/api/auth/signup";
