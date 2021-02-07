@@ -28,7 +28,7 @@ public class TransactionHistoryController {
 
 	@MetricRecorder(name = TransactionName.HISTORY)
 	@GetMapping
-	public ResponseEntity<Page<TransactionHistory>> history(@RequestParam(defaultValue = "0") @Positive Integer offset,
+	public ResponseEntity<Page<TransactionHistory>> history(@RequestParam(defaultValue = "0") Integer offset,
 					@RequestParam(defaultValue = "10") Integer limit,
 					@RequestParam(defaultValue = "id") String orderBy,
 					@RequestParam(required = false) Status status,
