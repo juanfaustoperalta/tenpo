@@ -25,7 +25,7 @@ public class TransactionHistoryServiceImpl
 	@Override
 	public void createTransactionHistory(Status status, TransactionName transactionName, Exception exception) {
 		TransactionHistory transactionHistory = new TransactionHistory(status, transactionName,
-						exception.getClass().getName());
+						exception.getClass().getName(), exception.getMessage());
 		transactionHistoryRepository.save(transactionHistory);
 	}
 
@@ -35,8 +35,29 @@ public class TransactionHistoryServiceImpl
 		transactionHistoryRepository.save(transactionHistory);
 	}
 
-	@Override public Page<TransactionHistory> getPage(Integer offset, Integer limit, String orderBy) {
+	@Override public Page<TransactionHistory> getPage(Integer offset, Integer limit, String orderBy,
+					Status status, TransactionName transactionName) {
 		Pageable pageable = PageRequest.of(offset, limit, Sort.by(orderBy));
+
+		if (checkFilter(transactionName) && checkFilter(status)) {
+			return transactionHistoryRepository
+							.findByTransactionNameAndStatus(pageable, transactionName, status);
+		}
+
+		if (checkFilter(transactionName)) {
+			return transactionHistoryRepository.findByTransactionName(pageable, transactionName);
+		}
+
+		if (checkFilter(status)) {
+			return transactionHistoryRepository.findByStatus(pageable, status);
+		}
+
 		return transactionHistoryRepository.findAll(pageable);
+
 	}
+
+	private boolean checkFilter(Enum aEnum) {
+		return aEnum != null;
+	}
+
 }

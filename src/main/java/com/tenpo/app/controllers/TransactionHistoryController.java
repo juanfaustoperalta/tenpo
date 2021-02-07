@@ -1,6 +1,7 @@
 package com.tenpo.app.controllers;
 
 import com.tenpo.app.aspect.MetricRecorder;
+import com.tenpo.app.model.Status;
 import com.tenpo.app.model.TransactionHistory;
 import com.tenpo.app.model.TransactionName;
 import com.tenpo.app.services.TransactionHistoryService;
@@ -24,7 +25,10 @@ public class TransactionHistoryController {
 	@MetricRecorder(name = TransactionName.HISTORY)
 	@GetMapping
 	public ResponseEntity<Page<TransactionHistory>> history(@RequestParam(defaultValue = "0") Integer offset,
-					@RequestParam(defaultValue = "10") Integer limit, @RequestParam(defaultValue = "id") String orderBy) {
-		return ResponseEntity.ok(service.getPage(offset, limit, orderBy));
+					@RequestParam(defaultValue = "10") Integer limit,
+					@RequestParam(defaultValue = "id") String orderBy,
+					@RequestParam(required = false) Status status,
+					@RequestParam(name = "transaction_name", required = false) TransactionName transactionName) {
+		return ResponseEntity.ok(service.getPage(offset, limit, orderBy, status, transactionName));
 	}
 }

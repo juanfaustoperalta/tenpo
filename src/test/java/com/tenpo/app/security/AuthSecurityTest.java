@@ -1,4 +1,4 @@
-package com.tenpo.app.services;
+package com.tenpo.app.security;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @SqlGroup(@Sql(scripts = "classpath:test-data.sql"))
-public class AuthServiceTest {
+public class AuthSecurityTest {
 
 	public static final String API_AUTH_SIGNUP = "/api/auth/signup";
 	public static final String API_AUTH_LOGIN = "/api/auth/login";
@@ -121,7 +121,7 @@ public class AuthServiceTest {
 
 		JwtResponse response = objectMapper.readValue(contentAsString, JwtResponse.class);
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get(API_AUTH_LOGOUT).contentType(MediaType.APPLICATION_JSON)
+		this.mockMvc.perform(MockMvcRequestBuilders.patch(API_AUTH_LOGOUT).contentType(MediaType.APPLICATION_JSON)
 						.header("Authorization", String.format("%s %s", response.getTokenType(), response.getAccessToken())))
 						.andExpect(status().isAccepted());
 

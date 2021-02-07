@@ -1,8 +1,13 @@
 package com.tenpo.app.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,19 +21,29 @@ public class TransactionHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Column(name = "status")
+	@Enumerated(EnumType.STRING)
 	private Status status;
+	@Column(name = "transaction_name")
+	@Enumerated(EnumType.STRING)
 	private TransactionName transactionName;
+	@JsonInclude(Include.NON_NULL)
 	private String exception;
+	@JsonInclude(Include.NON_NULL)
+	private String cause;
+
+
 	@CreationTimestamp
 	private OffsetDateTime createdAt;
 
 	public TransactionHistory() {
 	}
 
-	public TransactionHistory(Status status, TransactionName transactionName, String exception) {
+	public TransactionHistory(Status status, TransactionName transactionName, String exception, String cause) {
 		this.status = status;
 		this.transactionName = transactionName;
 		this.exception = exception;
+		this.cause = cause;
 	}
 
 	public TransactionHistory(Status status, TransactionName transactionName) {
@@ -74,6 +89,14 @@ public class TransactionHistory {
 
 	public void setCreatedAt(OffsetDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public String getCause() {
+		return cause;
+	}
+
+	public void setCause(String cause) {
+		this.cause = cause;
 	}
 
 }

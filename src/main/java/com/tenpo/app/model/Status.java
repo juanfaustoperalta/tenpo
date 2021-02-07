@@ -1,5 +1,5 @@
 package com.tenpo.app.model;
 
-public enum Status {
+public enum Status  {
 	SUCCESS, FAILED
 }

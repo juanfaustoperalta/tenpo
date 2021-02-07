@@ -10,5 +10,6 @@ public interface TransactionHistoryService {
 
 	void createTransactionHistory(Status status, TransactionName transactionName);
 
-	Page<TransactionHistory> getPage(Integer offset, Integer limit, String orderBy);
+	Page<TransactionHistory> getPage(Integer offset, Integer limit, String orderBy, Status status,
+					TransactionName transactionName);
 }
